@@ -48,8 +48,8 @@ but there is rules in some special cases :
   
   if your command contains special characters (`'`, `"`, `$`, `\`, ...) you 'll need to add a backslash just before it. **Or** if you enclose your command in single quotes (`'`) you don't need the backslash (exept for the single quotes inside your command) :
   
-  >          `rep 8 "printf \" beep \\a \\n \" ; sleep 0.3"`
-  >          `rep 8 'printf "beep \a \n"; sleep 0.3'` //those are the same,
+  >          `rep 8 "printf \" beep \\a \\n \" ; sleep 0.3"`  
+  >          `rep 8 'printf "beep \a \n"; sleep 0.3'` //those are the same,  
   >              //make a beep noise and print *beep* 8 times (with a 0.3s pause)
 
 - #### minimal output
@@ -164,7 +164,7 @@ if you don't have the *rep* folder anymore go to the *Alternative Uninstall* sec
 
 3. then you can delete the folder if you want
 
-###### Alternative Uninstall
+#### Alternative Uninstall
 
 if you don't have anymore the folder to run `make clean` you need to remove the rep command manually with something like `sudo rm /usr/local/bin/rep` note that if you changed the name or the path while installing, you'll need to modify the previous command accordingly
 
