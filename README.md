@@ -30,13 +30,13 @@
 
 rep is made to be as handy as possible so you just need to give it a number and a command : 
 
-> *rep        repeatCount        your Command*  
+>           *rep        repeatCount        your Command*  
 >           `rep 10 echo Hello World`   
 >             //print *Hello World* 10 times
 
 but there is rules in some special cases :
 
-- #### complex commands
+- ### complex commands
   
   complex commands (that contain a pipe, a semiconon or something) need to be enclosed in quotes or double quotes :
   
@@ -44,7 +44,7 @@ but there is rules in some special cases :
   >           `rep 16 "head /dev/random | md5sum"`  
   >               //print 16 random password
 
-- #### special characters
+- ### special characters
   
   if your command contains special characters (`'`, `"`, `$`, `\`, ...) you 'll need to add a backslash just before it. **Or** if you enclose your command in single quotes (`'`) you don't need the backslash (exept for the single quotes inside your command) :
   
@@ -52,7 +52,7 @@ but there is rules in some special cases :
   >          `rep 8 'printf "beep \a \n"; sleep 0.3'` //those are the same,  
   >              //make a beep noise and print *beep* 8 times (with a 0.3s pause)
 
-- #### minimal output
+- ### minimal output
   
   by default rep will print how many time it performed which command (and some empty line for better reading). if you don't want any output from rep, only the output from your commands, just put a dash/minus before the repeatCount :
   
@@ -61,7 +61,7 @@ but there is rules in some special cases :
   >               //print 16 password on screen and in randhash.txt without
   >                any message from rep
 
-- #### infinity mode
+- ### infinity mode
   
   the repeatCount 0 will repeat the command  indefinitely until stopped :
   
@@ -70,7 +70,7 @@ but there is rules in some special cases :
   
   something else than a number wont trigger this mode, it simply wont run.
 
-- #### accessing index
+- ### accessing index
   
   you can access the current index as rep store it in an environement variable before executing each command ( $REPINDEX , range [0 to repeatCount - 1]  ) :
   
@@ -81,7 +81,7 @@ but there is rules in some special cases :
   
   the name and range of the environement variable can be changed (see the [Customization](#customization) section for this).
 
-- #### alternative input
+- ### alternative input
   
   you cannot directly pipe into rep but you can use `xargs` to to it :
   
