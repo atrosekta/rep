@@ -30,42 +30,42 @@
 
 rep is made to be as handy as possible so you just need to give it a number and a command : 
 
->              *rep        repeatCount        your Command*  
->         `rep 10 echo Hello World`   
->             //print *Hello World* 10 times
+> *rep        repeatCount        your Command*  
+> `rep 10 echo Hello World`   
+>       //print *Hello World* 10 times
 
-but there is rules in some special cases :
+but there is rules in some special cases :  
 
 - ### complex commands
   
   complex commands (that contain a pipe, a semiconon or something) need to be enclosed in quotes or double quotes :
   
-  >            *rep        repeatCount        "your ; very | complex > command"*  
-  >           `rep 16 "head /dev/random | md5sum"`  
-  >               //print 16 random password
+  > *rep        repeatCount        "your ; very | complex > command"*  
+  > `rep 16 "head /dev/random | md5sum"`  
+  > //print 16 random password
 
 - ### special characters
   
   if your command contains special characters (`'`, `"`, `$`, `\`, ...) you 'll need to add a backslash just before it. **Or** if you enclose your command in single quotes (`'`) you don't need the backslash (exept for the single quotes inside your command) :
   
-  >          `rep 8 "printf \" beep \\a \\n \" ; sleep 0.3"`  
-  >          `rep 8 'printf "beep \a \n"; sleep 0.3'` //those are the same,  
-  >              //make a beep noise and print *beep* 8 times (with a 0.3s pause)
+  > `rep 8 "printf \" beep \\a \\n \" ; sleep 0.3"`  
+  > `rep 8 'printf "beep \a \n"; sleep 0.3'` //those are the same,  
+  > //make a beep noise and print *beep* 8 times (with a 0.3s pause)
 
 - ### minimal output
   
   by default rep will print how many time it performed which command (and some empty line for better reading). if you don't want any output from rep, only the output from your commands, just put a dash/minus before the repeatCount :
   
-  >            *rep        -repeatCount        your command*  
-  >            `rep -16 "head /dev/random | md5sum" | tee -a randhash.txt`  
-  >               //print 16 password on screen and in randhash.txt without any message from rep
+  > *rep        -repeatCount        your command*  
+  > `rep -16 "head /dev/random | md5sum" | tee -a randhash.txt`  
+  > //print 16 password on screen and in randhash.txt without any message from rep
 
 - ### infinity mode
   
   the repeatCount 0 will repeat the command  indefinitely until stopped :
   
-  >           `rep 0 echo infiniprint`  
-  >              //print *infiniprint* indefinitly  
+  > `rep 0 echo infiniprint`  
+  > //print *infiniprint* indefinitly  
   
   something else than a number wont trigger this mode, it simply wont run.
 
@@ -73,10 +73,10 @@ but there is rules in some special cases :
   
   you can access the current index as rep store it in an environement variable before executing each command ( $REPINDEX , range [0 to repeatCount - 1]  ) :
   
-  >         `rep 16 echo hello number \$REPINDEX`  
-  >              //print *hello number [current index]* 16 times  
-  >          `touch empty.txt; rep 12 'cp empty.txt empty$REPINDEX.txt'`  
-  >             //create an empty file and copy it 12 times with a unique name  
+  > `rep 16 echo hello number \$REPINDEX`  
+  > //print *hello number [current index]* 16 times  
+  > `touch empty.txt; rep 12 'cp empty.txt empty$REPINDEX.txt'`  
+  > //create an empty file and copy it 12 times with a unique name  
   
   the name and range of the environement variable can be changed (see the [Customization](#customization) section for this).
 
@@ -84,13 +84,13 @@ but there is rules in some special cases :
   
   you cannot directly pipe into rep but you can use `xargs` to to it :
   
-  >          `echo 8 echo hello | xargs rep`    //same as  
-  >          `echo echo hello | xargs rep 8`
+  > `echo 8 echo hello | xargs rep`    //same as  
+  > `echo echo hello | xargs rep 8`
   
   similarly, if the command you need to repeat become too long you could create a script that do your command and `rep ./yourscript` but it may be more convinient to just create a file (of any extension) and write your command inside, you can do it in how many lines you want but you should use the same syntax as if were wroting it in one line (with semicolon or *&&* to separate the commands, but you dont need to add a backslash at the end of each line). then you can run :
   
-  >         `xargs rep 10 < yourCommandFile`  
-  >            //or give the repeatCount at the beginning of the file
+  > `xargs rep 10 < yourCommandFile`  
+  > //or give the repeatCount at the beginning of the file
   
   rep will maybe handle this natively in future changes
 
@@ -98,8 +98,7 @@ but there is rules in some special cases :
 
 ## Customization
 
-after every change you need to reinstall the program with `make clean install` 
-(or customize it before install).
+after every change you need to reinstall the program with `make clean install` or `make clean symlink` inside this directory, (or customize it before install).  
 all the changes mentioned here are done in the ***core.h*** file in the *sources* folder.
 
 - you can ***change the environement variable name*** ( *$REPINDE*X by default ) at the line *n. 10*.
@@ -126,15 +125,14 @@ the whole program is not very complex so you may be able to modify it a bit more
 
 ###### But in more detail :
 
-you 'll need a c++ compiler like `g++`, and optionally but preferably `make`.
-you can change the target path for the executable at the second line of the file *makefile* but i recommand leaving it as it is.
+you 'll need a c++ compiler like `g++`, and optionally but preferably `make`. if you will use `make` you can change the target path for the executable at the second line of the file *makefile* but i recommand leaving it as it is.
 
 1. download the repo and go into the folder, manually or with  
    `git clone https://github.com/atrosekta/rep.git` and `cd rep`
 
 2. then ensure that you dont have any command already called *rep* as this would overwrite it (just run `rep` in your terminal and look for something like *command not found* )
 
-3. if no *rep* command already exist you can run `make symlink` (or `make install` if you want to delete this folder afterward) then go to step 5
+3. if no *rep* command already exist you can run `make symlink` (or `make install` if you want to delete this folder afterward), then go to step 5
 
 4. otherwise you 'll need to do change the name in the file *makefile* at the first line : just replace *rep* by a name you want that doesnt already exist, manually or with `sed -i '1s/rep/repname/g' makefile` ( with the name you choosed instead of *repname* ) then go to step 3, but if you dont want to use `make` you'll need to do manually what what *make install* do :
    
@@ -171,7 +169,8 @@ if you don't have anymore the folder to run `make clean` you need to remove the 
 
 ## Worth Mentioning and Known Issues
 
-- should work in any Unix environement but not tested in all of them
+- should work in any Unix environement but not tried on all of them
+      ( tested and working on *achlinux*, *osx el capitain* and *windows wsl debian* )
 
 - rep dont run your command simultaneously but one after the other
 
