@@ -31,7 +31,7 @@
 rep is made to be as handy as possible so you just need to give it a number and a command : 
 
 >              *rep        repeatCount        your Command*  
->           `rep 10 echo Hello World`   
+>         `rep 10 echo Hello World`   
 >             //print *Hello World* 10 times
 
 but there is rules in some special cases :
@@ -58,8 +58,7 @@ but there is rules in some special cases :
   
   >            *rep        -repeatCount        your command*  
   >            `rep -16 "head /dev/random | md5sum" | tee -a randhash.txt`  
-  >               //print 16 password on screen and in randhash.txt without
-  >                any message from rep
+  >               //print 16 password on screen and in randhash.txt without any message from rep
 
 - ### infinity mode
   
@@ -88,7 +87,7 @@ but there is rules in some special cases :
   >          `echo 8 echo hello | xargs rep`    //same as  
   >          `echo echo hello | xargs rep 8`
   
-  similarly, if the command you need to repeat become too long you could create a script that do your command and `rep ./yourscript` but it may be more convinient to just create a file (of any extension) and write your command inside, you can do it in how many lines you want but you should use the same syntax as if were wroting it in one line (with semicolon to separate the commands, but you dont need to add a backslash at the end of each line). then you can run :
+  similarly, if the command you need to repeat become too long you could create a script that do your command and `rep ./yourscript` but it may be more convinient to just create a file (of any extension) and write your command inside, you can do it in how many lines you want but you should use the same syntax as if were wroting it in one line (with semicolon or *&&* to separate the commands, but you dont need to add a backslash at the end of each line). then you can run :
   
   >         `xargs rep 10 < yourCommandFile`  
   >            //or give the repeatCount at the beginning of the file
