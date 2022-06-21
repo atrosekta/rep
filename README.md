@@ -115,7 +115,7 @@ the whole program is not very complex so you may be able to modify it a bit more
 
 ## Installation
 
-###### In short :
+##### In short :
 
 > `git clone https://github.com/atrosekta/rep.git`  
 > 
@@ -123,7 +123,7 @@ the whole program is not very complex so you may be able to modify it a bit more
 > 
 > `make symlink` or `make install`  
 
-###### But in more detail :
+##### But in more detail :
 
 you 'll need a c++ compiler like `g++`, and optionally but preferably `make`. if you will use `make` you can change the target path for the executable at the second line of the file *makefile* but i recommand leaving it as it is.
 
@@ -169,7 +169,7 @@ if you don't have anymore the folder to run `make clean` you need to remove the 
 
 ## Worth Mentioning and Known Issues
 
-- should work in any Unix environement but not tried on all of them
+- should work in any Unix environement but not tried on all of them  
       ( tested and working on *achlinux*, *osx el capitain* and *windows wsl debian* )
 
 - rep dont run your command simultaneously but one after the other
