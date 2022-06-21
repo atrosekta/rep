@@ -30,7 +30,7 @@
 
 rep is made to be as handy as possible so you just need to give it a number and a command : 
 
->           *rep        repeatCount        your Command*  
+>            *rep        repeatCount        your Command*  
 >           `rep 10 echo Hello World`   
 >             //print *Hello World* 10 times
 
@@ -40,7 +40,7 @@ but there is rules in some special cases :
   
   complex commands (that contain a pipe, a semiconon or something) need to be enclosed in quotes or double quotes :
   
-  >           *rep        repeatCount        "your ; very | complex > command"*  
+  >            *rep        repeatCount        "your ; very | complex > command"*  
   >           `rep 16 "head /dev/random | md5sum"`  
   >               //print 16 random password
 
@@ -74,7 +74,7 @@ but there is rules in some special cases :
   
   you can access the current index as rep store it in an environement variable before executing each command ( $REPINDEX , range [0 to repeatCount - 1]  ) :
   
-  >          `rep 16 echo hello number \$REPINDEX`  
+  >         `rep 16 echo hello number \$REPINDEX`  
   >              //print *hello number [current index]* 16 times  
   >          `touch empty.txt; rep 12 'cp empty.txt empty$REPINDEX.txt'`  
   >             //create an empty file and copy it 12 times with a unique name  
