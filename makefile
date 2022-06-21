@@ -19,5 +19,5 @@ install :
 
 symlink :
 	make
-	sudo ln -fs `pwd`/bin/${name} ${binpath}
+	sudo ln -fs `pwd`/bin/${name} ${binpath}/${name}
 
