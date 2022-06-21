@@ -1,4 +1,4 @@
-# REP is a dead simple tool to repeat a command a given number of times on linux
+# REP is a dead simple tool to repeat a command a given number of times in Unix environements
 
 - your command have access to the current index via an environement variable.
 
