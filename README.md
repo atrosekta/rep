@@ -1,4 +1,4 @@
-## REP is a dead simple tool to repeat a command a given number of times on linux
+# REP is a dead simple tool to repeat a command a given number of times on linux
 
 - your command have access to the current index via an environement variable.
 
@@ -12,7 +12,7 @@
 
 ---
 
-### Table of content
+## Table of content
 
 - [Usage](#usage)
 
@@ -22,82 +22,82 @@
 
 - [Uninstall](#uninstall)
 
-- [Worth Mentioning / Known Issue](#worth-mentioning-and-known-issue)
+- [Worth Mentioning / Known Issue](#worth-mentioning-and-known-issues)
 
 ---
 
-### Usage
+## Usage
 
 rep is made to be as handy as possible so you just need to give it a number and a command : 
 
-> *rep        repeatCount        your Command*
-> ie :    `rep 10 echo Hello World`  
->              //print *Hello World* 10 times
+> *rep        repeatCount        your Command*  
+>           `rep 10 echo Hello World`   
+>             //print *Hello World* 10 times
 
 but there is rules in some special cases :
 
-- ###### complex commands
+- #### complex commands
   
   complex commands (that contain a pipe, a semiconon or something) need to be enclosed in quotes or double quotes :
   
-  >           *rep        repeatCount        "your ; very | complex > command"*
-  > ie :    `rep 16 "head /dev/random | md5sum"` 
+  >           *rep        repeatCount        "your ; very | complex > command"*  
+  >           `rep 16 "head /dev/random | md5sum"`  
   >               //print 16 random password
 
-- ###### special characters
+- #### special characters
   
   if your command contains special characters (`'`, `"`, `$`, `\`, ...) you 'll need to add a backslash just before it. **Or** if you enclose your command in single quotes (`'`) you don't need the backslash (exept for the single quotes inside your command) :
   
-  > ie :    `rep 8 "printf \" beep \\a \\n \" ; sleep 0.3"`
+  >          `rep 8 "printf \" beep \\a \\n \" ; sleep 0.3"`
   >          `rep 8 'printf "beep \a \n"; sleep 0.3'` //those are the same,
   >              //make a beep noise and print *beep* 8 times (with a 0.3s pause)
 
-- ###### minimal output
+- #### minimal output
   
   by default rep will print how many time it performed which command (and some empty line for better reading). if you don't want any output from rep, only the output from your commands, just put a dash/minus before the repeatCount :
   
-  >            *rep        -repeatCount        your command* 
-  > ie :    `rep -16 "head /dev/random | md5sum" | tee -a randhash.txt`
+  >            *rep        -repeatCount        your command*  
+  >            `rep -16 "head /dev/random | md5sum" | tee -a randhash.txt`  
   >               //print 16 password on screen and in randhash.txt without
   >                any message from rep
 
-- ###### infinity mode
+- #### infinity mode
   
   the repeatCount 0 will repeat the command  indefinitely until stopped :
   
-  > ie :    `rep 0 echo infiniprint`
-  >              //print *infiniprint* indefinitely
+  >           `rep 0 echo infiniprint`  
+  >              //print *infiniprint* indefinitly  
   
   something else than a number wont trigger this mode, it simply wont run.
 
-- ###### accessing index
+- #### accessing index
   
   you can access the current index as rep store it in an environement variable before executing each command ( $REPINDEX , range [0 to repeatCount - 1]  ) :
   
-  > ie :    `rep 16 echo hello number \$REPINDEX` 
-  >              //print *hello number [current index]* 16 times
-  >          `touch empty.txt; rep 12 'cp empty.txt empty$REPINDEX.txt'`
-  >             //create an empty file and copy it 12 times with a unique name
+  >          `rep 16 echo hello number \$REPINDEX`  
+  >              //print *hello number [current index]* 16 times  
+  >          `touch empty.txt; rep 12 'cp empty.txt empty$REPINDEX.txt'`  
+  >             //create an empty file and copy it 12 times with a unique name  
   
   the name and range of the environement variable can be changed (see the [Customization](#customization) section for this).
 
-- ###### alternative input
+- #### alternative input
   
   you cannot directly pipe into rep but you can use `xargs` to to it :
   
-  > ie :    `echo 8 echo hello | xargs rep`
+  >          `echo 8 echo hello | xargs rep`    //same as  
   >          `echo echo hello | xargs rep 8`
   
   similarly, if the command you need to repeat become too long you could create a script that do your command and `rep ./yourscript` but it may be more convinient to just create a file (of any extension) and write your command inside, you can do it in how many lines you want but you should use the same syntax as if were wroting it in one line (with semicolon to separate the commands, but you dont need to add a backslash at the end of each line). then you can run :
   
-  >         `xargs rep 10 < yourCommandFile` 
-  >         //or give the repeatCount at the beginning of the file
+  >         `xargs rep 10 < yourCommandFile`  
+  >            //or give the repeatCount at the beginning of the file
   
   rep will maybe handle this natively in future changes
 
 ---
 
-### Customization
+## Customization
 
 after every change you need to reinstall the program with `make clean install` 
 (or customize it before install).
@@ -105,8 +105,8 @@ all the changes mentioned here are done in the ***core.h*** file in the *sources
 
 - you can ***change the environement variable name*** ( *$REPINDE*X by default ) at the line *n. 10*.
 
-- you can ***set the range of the environement variable*** via an offset at line *n. 15*.
-  $repindex = index + offset$ , so if you set this number at *10* the range of the environement variable would be from [10 to repeatCount-1+10] .
+- you can ***set the range of the environement variable*** via an offset at line *n. 15*.  
+  $repindex = index + offset$ , so if you set this number at *10* the range of the environement variable would be from [10 to repeatCount-1+10] .  
   maybe in the future i'll add a way to change it via an argument or something
 
 - you can ***invert the behaviour of a negative repeatCount*** ( set the default as minimal output and the negative number to have the rep output, instead of the reverse) by changing the value from *true* to *false* at line *n. 20* 
@@ -115,22 +115,22 @@ the whole program is not very complex so you may be able to modify it a bit more
 
 ---
 
-### Installation
+## Installation
 
 ###### In short :
 
-> `git clone https://github.com/atrosekta/rep.git`  , 
+> `git clone https://github.com/atrosekta/rep.git`  
 > 
-> `cd rep/`  ,
+> `cd rep/`  
 > 
-> `make symlink` or `make install`
+> `make symlink` or `make install`  
 
 ###### But in more detail :
 
 you 'll need a c++ compiler like `g++`, and optionally but preferably `make`.
 you can change the target path for the executable at the second line of the file *makefile* but i recommand leaving it as it is.
 
-1. download the repo and go into the folder, manually or with 
+1. download the repo and go into the folder, manually or with  
    `git clone https://github.com/atrosekta/rep.git` and `cd rep`
 
 2. then ensure that you dont have any command already called *rep* as this would overwrite it (just run `rep` in your terminal and look for something like *command not found* )
@@ -145,7 +145,8 @@ you can change the target path for the executable at the second line of the file
      then you can run it with `bin/repname` but i prefer to run it from anywhere with just `repname`
    
    - for that we'll run ``sudo ln -fs `pwd`/bin/repname /usr/local/bin`` 
-     but you could also copy or move the executable into a directory thay is in your $PATH, or even add the rep's bin directory to your \$PATH (`make install`would copy the executable into */usr/local/bin*)
+     but you could also copy or move the executable into a directory thay is in your $PATH, or even add the rep's bin directory to your \$PATH  
+     (`make install`would copy the executable into */usr/local/bin*)
 
 5. `rep 10 echo Enjoy !` if this say something like *command not found* then something went wrong ... 
 
@@ -153,9 +154,9 @@ you can change the target path for the executable at the second line of the file
 
 ---
 
-### Uninstall
+## Uninstall
 
-if you don have the *rep* folder anymore go to the *Alternative Uninstall* section
+if you don't have the *rep* folder anymore go to the *Alternative Uninstall* section
 
 1. go into the rep folder you downloaded, ensure that the name at the first line of the file *makefile* is the right name, if you installed it as *rep* or with a `make` command it should be ok
 
@@ -169,7 +170,7 @@ if you don't have anymore the folder to run `make clean` you need to remove the 
 
 --- 
 
-### Worth Mentioning and Known Issues
+## Worth Mentioning and Known Issues
 
 - should work in any Unix environement but not tested in all of them
 
@@ -182,9 +183,9 @@ if you don't have anymore the folder to run `make clean` you need to remove the 
   
   > **fix :**
   > don't run those program via rep,
-  > if you've still done it, hardly hold ctrl-c and hope,
+  > if you've still done it, hardly hold ctrl-c and hope,  
   > if it didnt work you can still close the terminal,
-  > if you cant, kill rep by process id, or htop or something,
+  > if you cant, kill rep by process id, or htop or something,  
   > if none of these work , restart your machine as a good vim user,
   > and dont rep your mistakes.
   > 
