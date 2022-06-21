@@ -30,7 +30,7 @@
 
 rep is made to be as handy as possible so you just need to give it a number and a command : 
 
->            *rep        repeatCount        your Command*  
+>              *rep        repeatCount        your Command*  
 >           `rep 10 echo Hello World`   
 >             //print *Hello World* 10 times
 
