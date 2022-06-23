@@ -34,7 +34,7 @@ rep is made to be as handy as possible so you just need to give it a number and 
 > `rep 10 echo Hello World`   
 >       //print *Hello World* 10 times
 
-but there is rules in some special cases :  
+##### but there is rules in some special cases :
 
 - ### complex commands
   
@@ -62,7 +62,7 @@ but there is rules in some special cases :
 
 - ### infinity mode
   
-  the repeatCount 0 will repeat the command  indefinitely until stopped :
+  the repeatCount `0` or `-0` will repeat the command  indefinitely until stopped :
   
   > `rep 0 echo infiniprint`  
   > //print *infiniprint* indefinitly  
@@ -107,7 +107,8 @@ all the changes mentioned here are done in the ***core.h*** file in the *sources
   $repindex = index + offset$ , so if you set this number at *10* the range of the environement variable would be from [10 to repeatCount-1+10] .  
   maybe in the future i'll add a way to change it via an argument or something
 
-- you can ***invert the behaviour of a negative repeatCount*** ( set the default as minimal output and the negative number to have the rep output, instead of the reverse) by changing the value from *true* to *false* at line *n. 20* 
+- you can ***invert the behaviour of a negative repeatCount*** ( set the default as minimal output and the negative number to have the rep output, instead of the reverse)  
+  by changing the value from *true* to *false* at line *n. 20* 
 
 the whole program is not very complex so you may be able to modify it a bit more than this to make it do exactly what you want
 
@@ -128,7 +129,7 @@ the whole program is not very complex so you may be able to modify it a bit more
 you 'll need a c++ compiler like `g++`, and optionally but preferably `make`. if you will use `make` you can change the target path for the executable at the second line of the file *makefile* but i recommand leaving it as it is.
 
 1. download the repo and go into the folder, manually or with  
-   `git clone https://github.com/atrosekta/rep.git` and `cd rep`
+   `git clone https://github.com/atrosekta/rep.git && cd rep`
 
 2. then ensure that you dont have any command already called *rep* as this would overwrite it (just run `rep` in your terminal and look for something like *command not found* )
 
@@ -141,7 +142,7 @@ you 'll need a c++ compiler like `g++`, and optionally but preferably `make`. if
    - run `g++ -o bin/repname sources/main.cpp` (other c++ compiler than g++ should work too)
      then you can run it with `bin/repname` but i prefer to run it from anywhere with just `repname`
    
-   - for that we'll run ``sudo ln -fs `pwd`/bin/repname /usr/local/bin`` 
+   - for that we'll run ``sudo ln -fs `pwd`/bin/repname /usr/local/bin/repname`` 
      but you could also copy or move the executable into a directory thay is in your $PATH, or even add the rep's bin directory to your \$PATH  
      (`make install`would copy the executable into */usr/local/bin*)
 
@@ -177,7 +178,7 @@ if you don't have anymore the folder to run `make clean` you need to remove the 
 - if a command fails , it wont stop rep from continuing.
 
 - *rep* is made to repeat command that should end automatically, if you repeat a command that is terminated by the user as normal way to end (vim, nano, htop, ...) then rep will repeat the command when you exit it, (because if you stop ( with *ctrl-c* or something ) a program that should end automatically, rep will detect it as an unintended way to end and so will stop executing, but for programs that are normally closed by the user, rep will detect it as if the command had ended normally and so will run it again until the repeatCount is reached...)
-  so if you run `rep 0 vim` ( dont do it )  you'll have a vim that indefinitly reopen itself when you have finaly exited it...
+  so if you run ( **dont do it** ) `rep 0 vim` you'll have a vim that indefinitly reopen itself when you have finaly exited it...
   
   > **fix :**
   > don't run those program via rep,
